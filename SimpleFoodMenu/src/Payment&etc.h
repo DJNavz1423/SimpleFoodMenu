@@ -8,7 +8,7 @@
 
 class Menu {
 private:
-	void menuDisplay() {
+	void menuDisplay() { // display menu function
 		system("cls");
 		std::cout << "HERE IS OUR MENU:\n"
 			<< "- - - - - - - - \n"
@@ -24,11 +24,11 @@ private:
 		}
 		std::cout << "\nEnter your orders, seperate them with space(1-10): ";
 	}
-	void orderProcess() {
+	void orderProcess() { //order process logic
 		bool correctOrder = true;
 		std::cin.ignore();
-		do {
-			menuDisplay();
+		do { //loop
+			menuDisplay(); //call menu display
 			std::string orders;
 			std::string list = "\nYOUR ORDERS:\n\n";
 			getline(std::cin, orders);
@@ -36,14 +36,14 @@ private:
 			float totalCost = 0.0f;
 			short orderNum;
 
-			std::map<short, int> orderCount;
-			while (ss >> orderNum) {
-				if (orderNum >= elem.menuItems[0].itemNumber && orderNum <= elem.menuItems.size()) {
-					totalCost += (elem.menuItems[orderNum - 1.0f].price);
+			std::map<short, int> orderCount; //count unique orders and how many it repeated, uo(x), repeated(y)
+			while (ss >> orderNum) { //read user input 1 by 1
+				if (orderNum >= elem.menuItems[0].itemNumber && orderNum <= elem.menuItems.size()) { //if input is in the array range
+					totalCost += (elem.menuItems[orderNum - 1].price);
 					correctOrder = true;
-					orderCount[orderNum]++;
+					orderCount[orderNum]++; //reads inputed number and if number is unique yet it increment and goes to a pair set and became x, else y and increment y if repeated again : {x, y}
 				}
-				else {
+				else { // invalid input
 					std::cout << "\nINVALID INPUT FOR ORDER NUMBER: " << orderNum << " | PRESS ANY KEY TO ORDER AGAIN!";
 					std::cin.get();
 					std::cin.clear();
@@ -51,9 +51,9 @@ private:
 					break;
 				}
 			}
-			if (correctOrder == true) {
-				for (const auto& pair : orderCount) {
-					const auto& item = elem.menuItems[pair.first - 1.0f];
+			if (correctOrder == true) { // if all user inputs are correct arrange the order list 
+				for (const auto& pair : orderCount) { //reads the pair sets of the orderCount
+					const auto& item = elem.menuItems[pair.first - 1];
 					std::ostringstream priceStream;
 					priceStream << std::fixed << std::setprecision(2) << item.price;
 					std::string fixedPrice = priceStream.str();
@@ -74,7 +74,7 @@ private:
 					Sleep(1800);
 					std::cout << "\nPLEASE WAIT...";
 					Sleep(1800);
-					Payment(totalCost);
+					Payment(totalCost); // call payment function
 				}
 				else {
 					correctOrder = false;
@@ -86,8 +86,8 @@ private:
 			}
 	} while (!correctOrder);
 }
-	void Payment(float& totalCost) {
-	   float money = 0.0f;
+	void Payment(float& totalCost) { // handle payment logic
+	   unsigned short money = 0;
 		bool sufficient = false;
 
 		do {
@@ -98,8 +98,8 @@ private:
 			std::cin >> money;
 
 			if (money >= totalCost) {
-				money = money - totalCost;
-				std::cout << "\nYOUR CHANGE IS: " << elem.pesoSign << std::fixed << std::setprecision(2) << money << "\n\n";
+				money = money - int(totalCost);
+				std::cout << "\nYOUR CHANGE IS: " << elem.pesoSign << money <<".00" << "\n\n";
 				Sleep(1500);
 				std::cout << "THANK YOU FOR ORDERING!!! ";
 				Sleep(2000);
@@ -117,13 +117,13 @@ private:
 	}
 public:
 	elements elem;
-	void intro() {
+	void intro() { // display intro
 		std::cout << " \tSIMPLE FOOD MENU SELECTION\n"
 			<< "\t****************************\n\n"
 			<< "Hello and Welcome!!!... Would you like to order? (Y/N): ";
 	}
 
-	void Functionality() {
+	void Functionality() { // function to call the whole logic
 		orderProcess();
 	}
 };

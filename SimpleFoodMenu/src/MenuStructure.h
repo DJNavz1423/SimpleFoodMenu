@@ -3,13 +3,13 @@
 #include <string>
 
 struct elements {
-	struct menuComps {
+	struct menuComps { // menu components
 		short itemNumber;
 		float price;
 		std::string name;
 	};
-	const char* pesoSign = u8"\u20B1";
-	std::vector<menuComps> menuItems = {
+	const char* pesoSign = u8"\u20B1"; //peso sign
+	std::vector<menuComps> menuItems = { // menu items in vector array
 		{1, 30.00f, "Fried Chicken"},
 		{2, 100.00f, "Bulalo"},
 		{3, 60.00f, "Palabok"},

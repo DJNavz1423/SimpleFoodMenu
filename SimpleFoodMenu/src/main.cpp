@@ -1,12 +1,12 @@
 #include "Payment&etc.h"
 
-int main() {
-    Menu foodMenu{};
-    system("chcp 65001 > nul");
+int main() { // main - entry point
+    Menu foodMenu{}; 
+    system("chcp 65001 > nul"); // set console to utf 8 so peso sign can be used
     
     bool run = false;
 
-    do {
+    do { // handle program flow
         foodMenu.intro();
         char input;
         std::cin >> input;
